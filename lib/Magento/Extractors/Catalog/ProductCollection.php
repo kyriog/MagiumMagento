@@ -131,13 +131,15 @@ class ProductCollection extends AbstractExtractor
         $element = $this->webDriver->byXpath($this->theme->getProductCollectionSortByXpath());
         $this->sortBy = trim($element->getText());
 
-        $element = $this->webDriver->byXpath($this->theme->getProductCollectionShowCountXpath());
-        $this->showCount = trim($element->getText());
+        if ($this->theme->getProductCollectionShowCountXpath()) {
+            $element = $this->webDriver->byXpath($this->theme->getProductCollectionShowCountXpath());
+            $this->showCount = trim($element->getText());
 
-        $this->showCountOptions = [];
-        $elements = $this->webDriver->findElements(WebDriverBy::xpath($this->theme->getProductCollectionShowCountOptionsXpath()));
-        foreach ($elements as $element) {
-            $this->showCountOptions[] = trim($element->getText());
+            $this->showCountOptions = [];
+            $elements = $this->webDriver->findElements(WebDriverBy::xpath($this->theme->getProductCollectionShowCountOptionsXpath()));
+            foreach ($elements as $element) {
+                $this->showCountOptions[] = trim($element->getText());
+            }
         }
     }
 }
